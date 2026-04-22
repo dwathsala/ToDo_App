@@ -13,12 +13,31 @@ def add_task(event):
     task = task_entry.get()
     task_entry.delete(0, tk.END)
     if task:
+        with open('tasks.txt', 'a') as file:
+            file.write(task + '\n')
         listbox.insert(tk.END, task)
         task_list.append(task)
 
     '''if task != '':
         listbox.insert(tk.END, task)
         task_entry.delete(0, tk.END)'''
+    
+def delete_task():
+   # print(listbox.get(tk.ANCHOR))
+    task = listbox.get(tk.ANCHOR)
+    listbox.delete(tk.ANCHOR)
+    task_list.remove(task)
+
+def open_tasks():
+    with open('tasks.txt', 'r') as file:
+        tasks = file.readlines()
+
+        print(tasks)
+
+    for task in tasks:
+        if task != '\n':
+            listbox.insert(tk.END, task)
+            task_list.append(task)
 
 heading = ttk.Label(root, text='All TASKS', font='arial 20 bold', foreground='darkblue')
 heading.pack()
@@ -37,10 +56,12 @@ frame1.pack(pady=10)
 listbox = tk.Listbox(frame1, font='arial 12', width=39, height=18)
 listbox.pack()
 
+open_tasks()
+
 s = ttk.Style()
 s.configure('TButton', font='arial 12', foreground='red')
 
-delete_btn = ttk.Button(root, text='Delete Task', style='TButton')
+delete_btn = ttk.Button(root, text='Delete Task', style='TButton', command= delete_task)
 delete_btn.pack(pady=12,ipadx=10,ipady=12, side=tk.BOTTOM)
 
 root.mainloop()
