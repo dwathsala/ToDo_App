@@ -7,14 +7,29 @@ root.geometry('400x500')
 root.resizable(False,False)
 root.iconbitmap('check.ico')
 
+task_list = []
+
+def add_task(event):
+    task = task_entry.get()
+    task_entry.delete(0, tk.END)
+    if task:
+        listbox.insert(tk.END, task)
+        task_list.append(task)
+
+    '''if task != '':
+        listbox.insert(tk.END, task)
+        task_entry.delete(0, tk.END)'''
+
 heading = ttk.Label(root, text='All TASKS', font='arial 20 bold', foreground='darkblue')
 heading.pack()
 
 frame = ttk.Frame(root, width=400, height=50)
 frame.pack(pady=2) 
 
-task_entry = ttk.Entry(frame, font='arial 18', width=27)
+task_entry = ttk.Entry(frame, font='arial 16', width=29)
 task_entry.pack()
+
+task_entry.bind('<Return>', add_task)
 
 frame1 = ttk.Frame(root, width=300, height=250)
 frame1.pack(pady=10)
