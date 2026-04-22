@@ -19,6 +19,12 @@ def add_task(event):
     '''if task != '':
         listbox.insert(tk.END, task)
         task_entry.delete(0, tk.END)'''
+    
+def delete_task():
+   # print(listbox.get(tk.ANCHOR))
+    task = listbox.get(tk.ANCHOR)
+    listbox.delete(tk.ANCHOR)
+    task_list.remove(task)
 
 heading = ttk.Label(root, text='All TASKS', font='arial 20 bold', foreground='darkblue')
 heading.pack()
@@ -40,7 +46,7 @@ listbox.pack()
 s = ttk.Style()
 s.configure('TButton', font='arial 12', foreground='red')
 
-delete_btn = ttk.Button(root, text='Delete Task', style='TButton')
+delete_btn = ttk.Button(root, text='Delete Task', style='TButton', command= delete_task)
 delete_btn.pack(pady=12,ipadx=10,ipady=12, side=tk.BOTTOM)
 
 root.mainloop()
