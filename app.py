@@ -27,6 +27,10 @@ def delete_task():
     task = listbox.get(tk.ANCHOR)
     listbox.delete(tk.ANCHOR)
     task_list.remove(task)
+    with open('tasks.txt', 'w') as file:
+        for task in task_list:
+            file.write(task + '\n')
+
 
 def open_tasks():
     with open('tasks.txt', 'r') as file:
